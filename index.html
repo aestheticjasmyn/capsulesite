@@ -3,507 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>§ ARCHIVE // TIME CAPSULE §</title>
+    <title>✦ Nostalgia Archive ✦</title>
     <style>
-        /* --- DESIGN SYSTEM & THEME --- 
-           Aesthetic: Cyber-Organic / Earthy Cybery2k
-           Palette: Beige, Sand, Ivory, Olive Green, Chrome Accents
-        */
+        /* Core Scrapbook / Dark Cyber Aesthetic */
         :root {
-            --bg-sand: #e6dfd3;
-            --panel-ivory: #fcfbfa;
-            --cyber-olive: #556b2f;
-            --cyber-olive-glow: rgba(85, 107, 47, 0.3);
-            --text-dark: #2c2a29;
-            --chrome-neon: #a3b19b;
-            --font-mono: 'Courier New', Courier, monospace;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --bg-color: #0b0c10;
+            --panel-bg: rgba(31, 40, 51, 0.6);
+            --accent-chrome: #66fcf1;
+            --text-main: #c5a3ff; /* Lavender accents */
+            --text-body: #e0e0e0;
         }
 
         body {
-            background-color: var(--bg-sand);
-            color: var(--text-dark);
-            font-family: var(--font-mono);
-            overflow-x: hidden;
-            background-image: radial-gradient(var(--cyber-olive-glow) 1px, transparent 1px);
-            background-size: 20px 20px;
-        }
-
-        /* --- LOCK SCREEN (PRIVACY) --- */
-        #lock-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: var(--text-dark);
-            color: var(--panel-ivory);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .lock-box {
-            border: 1px solid var(--chrome-neon);
-            padding: 30px;
-            background: #1a1919;
-            box-shadow: 0 0 20px var(--cyber-olive-glow);
-            text-align: center;
-            max-width: 400px;
-            width: 90%;
-        }
-
-        .lock-box h1 {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-            color: var(--chrome-neon);
-        }
-
-        .lock-box input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            background: #2c2a29;
-            border: 1px solid var(--cyber-olive);
-            color: var(--panel-ivory);
-            text-align: center;
-            font-family: var(--font-mono);
-        }
-
-        .lock-box button {
-            background: var(--cyber-olive);
-            color: var(--panel-ivory);
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            width: 100%;
-            font-family: var(--font-mono);
-            text-transform: uppercase;
-            transition: all 0.3s;
-        }
-
-        .lock-box button:hover {
-            background: var(--chrome-neon);
-            color: var(--text-dark);
-        }
-
-        /* --- MAIN LAYOUT --- */
-        #app-interface {
-            display: none; /* Hidden until unlocked */
+            background-color: var(--bg-color);
+            color: var(--text-body);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
             padding: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
+            background-image: radial-gradient(rgba(102, 252, 241, 0.1) 1px, transparent 0);
+            background-size: 24px 24px;
         }
 
         header {
-            border-bottom: 2px dashed var(--cyber-olive);
-            padding-bottom: 15px;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 1px double var(--accent-chrome);
             margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
         }
 
-        .brand-logo {
-            font-weight: bold;
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            color: var(--cyber-olive);
-            text-shadow: 1px 1px var(--panel-ivory);
+        h1 {
+            color: var(--accent-chrome);
+            font-size: 2rem;
+            letter-spacing: 4px;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+            margin: 0 0 10px 0;
         }
 
-        /* --- NAVIGATION TABS --- */
-        nav {
+        /* Scrapbook Tabs */
+        .tab-container {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
             margin-bottom: 30px;
         }
 
         .tab-btn {
-            background: var(--panel-ivory);
-            border: 1px solid var(--text-dark);
+            background: transparent;
+            border: 1px solid var(--text-main);
+            color: var(--text-main);
             padding: 10px 20px;
             cursor: pointer;
-            font-family: var(--font-mono);
-            font-weight: bold;
-            transition: all 0.2s ease;
-            box-shadow: 3px 3px 0px var(--text-dark);
+            font-family: inherit;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
         .tab-btn.active, .tab-btn:hover {
-            background: var(--cyber-olive);
-            color: var(--panel-ivory);
-            transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0px var(--text-dark);
+            background: var(--text-main);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--text-main);
         }
 
-        .view-section {
+        .view-panel {
             display: none;
-            animation: fadeIn 0.4s ease forwards;
+            background: var(--panel-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 8px;
+            max-wwidth: 1200px;
+            margin: 0 auto;
         }
 
-        .view-section.active {
+        .view-panel.active {
             display: block;
         }
 
-        /* --- MODULE 1: FILM STRIP GALLERY --- */
-        .gallery-container {
+        /* FILMSTRIP GALLERY STYLE */
+        .filmstrip-container {
             display: flex;
             flex-direction: column;
             gap: 40px;
         }
 
-        .folder-group {
-            background: var(--panel-ivory);
-            padding: 20px;
-            border: 1px solid var(--text-dark);
-            box-shadow: 5px 5px 0px rgba(0,0,0,0.05);
-        }
-
-        .folder-title {
-            font-size: 1.1rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            border-left: 4px solid var(--cyber-olive);
-            padding-left: 10px;
-        }
-
-        .film-strip {
+        .filmstrip {
+            background: #111;
+            border-top: 20px repeat-x url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="20"><rect width="6" height="12" x="3" y="4" fill="black"/></svg>');
+            border-bottom: 20px repeat-x url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="20"><rect width="6" height="12" x="3" y="4" fill="black"/></svg>');
+            padding: 20px 10px;
             display: flex;
             gap: 15px;
             overflow-x: auto;
-            padding: 20px 10px;
-            background: #111; /* Traditional film backing */
-            border-top: 12px dashed #fff;
-            border-bottom: 12px dashed #fff;
+            border-left: 4px solid #222;
+            border-right: 4px solid #222;
         }
 
-        .film-frame {
-            flex: 0 0 200px;
-            height: 150px;
-            background: #2c2a29;
-            border: 4px solid #000;
-            position: relative;
+        .filmstrip-frame {
+            flex: 0 0 auto;
+            width: 250px;
+            height: 180px;
+            background: #000;
+            border: 2px solid #333;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #777;
-            font-size: 0.8rem;
+            position: relative;
         }
 
-        .film-frame img {
+        .filmstrip-frame img, .filmstrip-frame video {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            filter: grayscale(20%) contrast(110%);
+            transition: filter 0.3s;
         }
 
-        /* --- MODULE 2: INTERACTIVE KITCHEN (FOOD & DRINKS) --- */
-        .kitchen-scene {
-            display: flex;
-            justify-content: center;
-            padding: 40px 0;
+        .filmstrip-frame:hover img, .filmstrip-frame:hover video {
+            filter: grayscale(0%) contrast(100%);
         }
 
-        .fridge {
-            width: 320px;
-            background: var(--panel-ivory);
-            border: 3px solid var(--text-dark);
-            border-radius: 20px 20px 5px 5px;
-            box-shadow: 8px 8px 0px var(--cyber-olive-glow);
-            position: relative;
+        .filmstrip-title {
+            color: var(--accent-chrome);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--accent-chrome);
+            padding-left: 10px;
         }
 
-        .fridge-handle {
-            position: absolute;
-            right: 20px;
-            top: 30%;
-            width: 12px;
-            height: 80px;
-            background: var(--text-dark);
-            border-radius: 5px;
-        }
-
-        .fridge-door-panel {
-            padding: 30px 20px;
-            height: 450px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-
-        .magnet {
-            background: var(--bg-sand);
-            border: 1px dashed var(--text-dark);
-            padding: 8px;
-            text-align: center;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transform: rotate(-3deg);
-            transition: transform 0.2s;
-            box-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .magnet:nth-child(even) { transform: rotate(4deg); }
-        .magnet:hover { transform: scale(1.05) rotate(0deg); background: var(--chrome-neon); }
-
-        /* --- MODULE 3: INTERACTIVE DESKTOP (GAMES) --- */
-        .desktop-environment {
-            background: #596854; /* Matte Olive Desktop Screen */
-            border: 6px double var(--text-dark);
-            height: 500px;
-            position: relative;
-            padding: 20px;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.4);
-        }
-
-        .desktop-icons {
-            display: flex;
-            flex-direction: column;
+        /* KITCHEN INTERACTIVE PLACEHOLDER */
+        .kitchen-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            width: 100px;
-        }
-
-        .game-icon {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
             text-align: center;
+        }
+
+        .trinket-card {
+            border: 1px dashed var(--accent-chrome);
+            padding: 20px;
             cursor: pointer;
-            color: var(--panel-ivory);
-            font-size: 0.75rem;
-            text-shadow: 1px 1px 2px #000;
+            transition: transform 0.2s;
         }
 
-        .game-icon .icon-graphic {
-            width: 45px;
-            height: 45px;
-            background: var(--panel-ivory);
-            border: 2px solid var(--text-dark);
-            margin-bottom: 5px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: var(--text-dark);
-            font-weight: bold;
-            font-size: 1.2rem;
+        .trinket-card:hover {
+            transform: scale(1.05);
+            background: rgba(102, 252, 241, 0.05);
         }
 
-        /* --- MODAL WINDOWS (TRINKET / POPUP STYLE) --- */
-        .popup-window {
-            position: absolute;
-            top: 20%;
-            left: 30%;
-            width: 350px;
-            background: var(--panel-ivory);
-            border: 2px solid var(--text-dark);
-            box-shadow: 6px 6px 0px #000;
-            display: none;
-            z-index: 100;
+        /* CUSTOM SCROLLBAR FOR FILMSTRIPS */
+        .filmstrip::-webkit-scrollbar {
+            height: 8px;
         }
-
-        .popup-header {
-            background: var(--text-dark);
-            color: var(--panel-ivory);
-            padding: 5px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-
-        .close-btn {
-            cursor: pointer;
-            background: var(--cyber-olive);
-            padding: 0 5px;
-            border: 1px solid var(--panel-ivory);
-        }
-
-        .popup-body {
-            padding: 15px;
-            font-size: 0.85rem;
-            line-height: 1.4;
-        }
-
-        .popup-body a {
-            color: var(--cyber-olive);
-            font-weight: bold;
-        }
-
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+        .filmstrip::-webkit-scrollbar-thumb {
+            background: var(--accent-chrome);
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <div id="lock-screen">
-        <div class="lock-box">
-            <h1>§ ENTER ENCRYPTED VAULT §</h1>
-            <input type="password" id="vault-pass" placeholder="PASSWORD Required" autocomplete="current-password">
-            <button onclick="unlockVault()">Decrypt</button>
-            <p id="lock-error" style="color: #ff6b6b; font-size: 0.75rem; margin-top: 10px; display: none;">ACCESS DENIED // INVALID KEY</p>
+    <header>
+        <h1>✦ MEMORY_ARCHIVE.EXE ✦</h1>
+        <p>Private Digital Scrapbook & Nostalgia Vault</p>
+    </header>
+
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab('gallery')">Gallery</button>
+        <button class="tab-btn" onclick="switchTab('kitchen')">The Kitchen</button>
+        <button class="tab-btn" onclick="switchTab('desktop')">Retro Desktop</button>
+    </div>
+
+    <!-- GALLERY PANEL -->
+    <div id="gallery" class="view-panel active">
+        <div class="filmstrip-container">
+            
+            <!-- Filmstrip Row 1 -->
+            <div>
+                <div class="filmstrip-title">YEAR_2024_HIGHLIGHTS //</div>
+                <div class="filmstrip">
+                    <!-- Frame 1 -->
+                    <div class="filmstrip-frame">
+                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500" alt="Placeholder 1">
+                    </div>
+                    <!-- Frame 2 (You'll replace these sources with your Google Photos embed URLs) -->
+                    <div class="filmstrip-frame">
+                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500" alt="Placeholder 2">
+                    </div>
+                    <div class="filmstrip-frame">
+                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500" alt="Placeholder 3">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filmstrip Row 2 -->
+            <div>
+                <div class="filmstrip-title">CONCERTS_&_TRIPS //</div>
+                <div class="filmstrip">
+                    <div class="filmstrip-frame">
+                        <video src="" controls muted placeholder="Paste Google Video URL here"></video>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <div id="app-interface">
-        <header>
-            <div class="brand-logo">// ARCHIVE.SYSTEM</div>
-            <div style="font-size: 0.8rem;">SYS_STATUS: ACTIVE</div>
-        </header>
-
-        <nav>
-            <button class="tab-btn active" onclick="switchTab('gallery')">📁 GALLERY</button>
-            <button class="tab-btn" onclick="switchTab('food')">🧃 KITCHEN</button>
-            <button class="tab-btn" onclick="switchTab('games')">🕹️ DESKTOP</button>
-        </nav>
-
-        <main>
-            <section id="gallery" class="view-section active">
-                <div class="gallery-container">
-                    
-                    <div class="folder-group">
-                        <div class="folder-title">Archive: By Year</div>
-                        <div class="film-strip">
-                            <div class="film-frame"><span class="photo-placeholder">[ 2024 Media Item ]</span></div>
-                            <div class="film-frame"><span class="photo-placeholder">[ 2025 Media Item ]</span></div>
-                            <div class="film-frame"><span class="photo-placeholder">[ 2026 Media Item ]</span></div>
-                        </div>
-                    </div>
-
-                    <div class="folder-group">
-                        <div class="folder-title">Archive: Just Me</div>
-                        <div class="film-strip">
-                            <div class="film-frame"><span class="photo-placeholder">[ Portrait 01 ]</span></div>
-                            <div class="film-frame"><span class="photo-placeholder">[ Portrait 02 ]</span></div>
-                        </div>
-                    </div>
-
-                    <div class="folder-group">
-                        <div class="folder-title">Archive: Connections & Events</div>
-                        <div class="film-strip">
-                            <div class="film-frame"><span class="photo-placeholder">[ Me + Companion ]</span></div>
-                            <div class="film-frame"><span class="photo-placeholder">[ Baby Shower Memory ]</span></div>
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-
-            <section id="food" class="view-section">
-                <p style="text-align: center; margin-bottom: 20px; font-size: 0.9rem;">Interact with the vault pantry magnets to pull up food logs:</p>
-                <div class="kitchen-scene">
-                    <div class="fridge">
-                        <div class="fridge-handle"></div>
-                        <div class="fridge-door-panel">
-                            <div class="magnet" onclick="openKitchenModal('Plant-Based Burgers', '2024-2025 Staples: Regular late-night orders from Plant Power Fast Food. Always guilt-free, plant-based patties paired with custom dairy-free sides.')">🍔 Plant Burger</div>
-                            <div class="magnet" onclick="openKitchenModal('Custom Acai Bowls', 'Better Days Fixation: Layered with premium ceremonial matcha, rich almond butter, and raw organic hemp granola.')">🍵 Matcha Bowl</div>
-                            <div class="magnet" onclick="openKitchenModal('Iced Blue Matcha Latte', 'Earthy tones in a cup. Vanilla alternative milk base, layered heavily with blue spirulina variant or pure iced matcha.')">☕ Iced Latte</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section id="games" class="view-section">
-                <div class="desktop-environment">
-                    <div class="desktop-icons">
-                        <div class="game-icon" onclick="openDesktopModal('Roblox Profile', 'User: aestheticjxsmyn<br>Status: 2-step verification active.<br><br><a href=\'#\'>Launch Experience</a>')">
-                            <div class="icon-graphic">R$</div>
-                            <span>Roblox</span>
-                        </div>
-                        <div class="game-icon" onclick="openDesktopModal('Emulation Station', 'System: Ryubing ARM64 Architecture<br>Patch Level: Canary 1.3.279<br>Shader Cache: Optimizing Pipeline GL drivers.')">
-                            <div class="icon-graphic">🎮</div>
-                            <span>Ryubing</span>
-                        </div>
-                    </div>
-
-                    <div id="desktop-popup" class="popup-window">
-                        <div class="popup-header">
-                            <span id="popup-title">System_File.exe</span>
-                            <span class="close-btn" onclick="closeDesktopModal()">X</span>
-                        </div>
-                        <div class="popup-body" id="popup-text">
-                            </div>
-                    </div>
-
-                </div>
-            </section>
-        </main>
+    <!-- KITCHEN PANEL -->
+    <div id="kitchen" class="view-panel">
+        <h2 style="color: var(--accent-chrome);">🫙 The Interactive Fridge</h2>
+        <p>Click on custom panels to pull up past favorite foods, recipes, and dynamic scrapbooked memories.</p>
+        <div class="kitchen-grid">
+            <div class="trinket-card"><h3>🛒 Snacks & Candy</h3></div>
+            <div class="trinket-card"><h3>🥤 Drink Tier Lists</h3></div>
+            <div class="trinket-card"><h3>🥞 Late Night Runs</h3></div>
+        </div>
     </div>
 
-    <div id="kitchen-popup" class="popup-window" style="position: fixed; top: 40%; left: 50%; transform: translate(-50%, -50%);">
-        <div class="popup-header">
-            <span id="kitchen-popup-title">Trinket Log</span>
-            <span class="close-btn" onclick="document.getElementById('kitchen-popup').style.display='none'">X</span>
+    <!-- DESKTOP GAMES PANEL -->
+    <div id="desktop" class="view-panel">
+        <h2 style="color: var(--accent-chrome);">💾 Virtual OS Desktop</h2>
+        <p>An interactive dashboard tracking game profiles, links to remakes, and usernames.</p>
+        <div class="kitchen-grid">
+            <div class="trinket-card"><h3>🎮 Nostalgic MMOs</h3></div>
+            <div class="trinket-card"><h3>👾 Flash Classics</h3></div>
         </div>
-        <div class="popup-body" id="kitchen-popup-text"></div>
     </div>
 
     <script>
-        // --- VAULT PASS GATE ---
-        // Simple client gate. Change 'archive2026' to whatever password you want.
-        function unlockVault() {
-            const entry = document.getElementById('vault-pass').value;
-            if(entry === 'archive2026' || entry === 'password') { 
-                document.getElementById('lock-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('lock-screen').style.display = 'none';
-                    document.getElementById('app-interface').style.display = 'block';
-                }, 500);
-            } else {
-                document.getElementById('lock-error').style.display = 'block';
-            }
-        }
-
-        // Allow pressing 'Enter' key to log in
-        document.getElementById('vault-pass').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') unlockVault();
-        });
-
-        // --- NAVIGATION TABS ---
         function switchTab(tabId) {
-            // Hide all views
-            document.querySelectorAll('.view-section').forEach(section => {
-                section.classList.remove('active');
+            // Hide all panels
+            document.querySelectorAll('.view-panel').forEach(panel => {
+                panel.classList.remove('active');
             });
-            // Remove active classes from buttons
+            // Deactivate all buttons
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.classList.remove('active');
             });
-            // Show current target
+            
+            // Show selected panel and button
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
-        }
-
-        // --- INTERACTIVE POPUPS (MODALS) ---
-        function openKitchenModal(title, text) {
-            const popup = document.getElementById('kitchen-popup');
-            document.getElementById('kitchen-popup-title').innerText = `😋 LOG // ${title}`;
-            document.getElementById('kitchen-popup-text').innerHTML = text;
-            popup.style.display = 'block';
-        }
-
-        function openDesktopModal(title, text) {
-            const popup = document.getElementById('desktop-popup');
-            document.getElementById('popup-title').innerText = `💾 SYSTEM // ${title}`;
-            document.getElementById('popup-text').innerHTML = text;
-            popup.style.display = 'block';
-        }
-
-        function closeDesktopModal() {
-            document.getElementById('desktop-popup').style.display = 'none';
         }
     </script>
 </body>
