@@ -3,245 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✦ Nostalgia Archive ✦</title>
+    <title>🪓 𝖏𝖆𝖘𝖒𝖞𝖓'𝖘 𝖉𝖎𝖌𝖎𝖙𝖆𝖑 𝖘𝖈𝖗𝖆𝖕𝖇𝖔𝖔𝖐 🌿</title>
     <style>
-        /* Core Scrapbook / Dark Cyber Aesthetic */
         :root {
-            --bg-color: #0b0c10;
-            --panel-bg: rgba(31, 40, 51, 0.6);
-            --accent-chrome: #66fcf1;
-            --text-main: #c5a3ff; /* Lavender accents */
-            --text-body: #e0e0e0;
+            --bg-sand: #f4f1ea;
+            --olive-green: #556b2f;
+            --dark-olive: #3b4d20;
+            --ivory: #fdfbf7;
+            --cyber-glow: #a3b899;
+            --font-retro: "Courier New", Courier, monospace;
         }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-body);
-            font-family: 'Courier New', Courier, monospace;
+        body, html {
             margin: 0;
-            padding: 20px;
-            background-image: radial-gradient(rgba(102, 252, 241, 0.1) 1px, transparent 0);
-            background-size: 24px 24px;
-        }
-
-        header {
-            text-align: center;
-            padding: 20px;
-            border-bottom: 1px double var(--accent-chrome);
-            margin-bottom: 30px;
-        }
-
-        h1 {
-            color: var(--accent-chrome);
-            font-size: 2rem;
-            letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
-            margin: 0 0 10px 0;
-        }
-
-        /* Scrapbook Tabs */
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            background: transparent;
-            border: 1px solid var(--text-main);
-            color: var(--text-main);
-            padding: 10px 20px;
-            cursor: pointer;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
-
-        .tab-btn.active, .tab-btn:hover {
-            background: var(--text-main);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--text-main);
-        }
-
-        .view-panel {
-            display: none;
-            background: var(--panel-bg);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(12px);
-            padding: 30px;
-            border-radius: 8px;
-            max-wwidth: 1200px;
-            margin: 0 auto;
-        }
-
-        .view-panel.active {
-            display: block;
-        }
-
-        /* FILMSTRIP GALLERY STYLE */
-        .filmstrip-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-        }
-
-        .filmstrip {
-            background: #111;
-            border-top: 20px repeat-x url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="20"><rect width="6" height="12" x="3" y="4" fill="black"/></svg>');
-            border-bottom: 20px repeat-x url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="20"><rect width="6" height="12" x="3" y="4" fill="black"/></svg>');
-            padding: 20px 10px;
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            border-left: 4px solid #222;
-            border-right: 4px solid #222;
-        }
-
-        .filmstrip-frame {
-            flex: 0 0 auto;
-            width: 250px;
-            height: 180px;
-            background: #000;
-            border: 2px solid #333;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .filmstrip-frame img, .filmstrip-frame video {
+            padding: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            filter: grayscale(20%) contrast(110%);
-            transition: filter 0.3s;
+            font-family: var(--font-retro);
+            background-color: var(--bg-sand);
+            background-image: radial-gradient(var(--cyber-glow) 0.5px, transparent 0.5px), radial-gradient(var(--cyber-glow) 0.5px, var(--bg-sand) 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            overflow: hidden;
+            color: var(--dark-olive);
         }
 
-        .filmstrip-frame:hover img, .filmstrip-frame:hover video {
-            filter: grayscale(0%) contrast(100%);
+        /* --- PASSWORD GATE --- */
+        #password-gate {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-sand);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            border: 10px double var(--olive-green);
+            box-sizing: border-box;
         }
 
-        .filmstrip-title {
-            color: var(--accent-chrome);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            border-left: 3px solid var(--accent-chrome);
-            padding-left: 10px;
-        }
-
-        /* KITCHEN INTERACTIVE PLACEHOLDER */
-        .kitchen-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
+        .cyber-input {
+            background: var(--ivory);
+            border: 2px solid var(--olive-green);
+            padding: 10px;
+            font-family: var(--font-retro);
+            color: var(--dark-olive);
+            outline: none;
             text-align: center;
+            font-size: 1.2rem;
+            box-shadow: 4px 4px 0px var(--olive-green);
         }
 
-        .trinket-card {
-            border: 1px dashed var(--accent-chrome);
-            padding: 20px;
+        .cyber-btn {
+            margin-top: 15px;
+            background: var(--olive-green);
+            color: var(--ivory);
+            border: none;
+            padding: 10px 20px;
             cursor: pointer;
+            font-family: var(--font-retro);
+            box-shadow: 4px 4px 0px var(--dark-olive);
+        }
+        .cyber-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--dark-olive);
+        }
+
+        /* --- DESKTOP LAYOUT --- */
+        #desktop {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        /* Desktop Icons */
+        .desktop-icon {
+            width: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .desktop-icon .icon-pic {
+            width: 50px;
+            height: 50px;
+            background: var(--ivory);
+            border: 2px dashed var(--olive-green);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
             transition: transform 0.2s;
         }
-
-        .trinket-card:hover {
-            transform: scale(1.05);
-            background: rgba(102, 252, 241, 0.05);
+        .desktop-icon:hover .icon-pic {
+            transform: scale(1.1) rotate(3deg);
+            background: var(--cyber-glow);
         }
 
-        /* CUSTOM SCROLLBAR FOR FILMSTRIPS */
-        .filmstrip::-webkit-scrollbar {
-            height: 8px;
-        }
-        .filmstrip::-webkit-scrollbar-thumb {
-            background: var(--accent-chrome);
+        /* --- DRAGGABLE WINDOWS (Old Internet Style) --- */
+        .window {
+            position: absolute;
+            background: var(--ivory);
+            border: 2px solid var(--dark-olive);
+            box-shadow: 8px 8px 0px rgba(85, 107, 47, 0.3);
+            min-width: 300px;
+            display: none;
+            z-index: 10;
             border-radius: 4px;
         }
+
+        .window-header {
+            background: var(--olive-green);
+            color: var(--ivory);
+            padding: 6px 10px;
+            cursor: move;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            background: var(--bg-sand);
+            color: var(--dark-olive);
+            border: 1px solid var(--dark-olive);
+            padding: 0px 5px;
+            font-size: 0.7rem;
+        }
+
+        .window-content {
+            padding: 15px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        /* --- COMPONENT: SPINNING VINYL --- */
+        .vinyl-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .vinyl {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #111 30%, #333 40%, #111 50%, #222 60%, #000 70%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .vinyl::before {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: var(--cyber-glow);
+            border-radius: 50%;
+            border: 2px dashed var(--olive-green);
+        }
+        .vinyl::after {
+            content: '🌿';
+            position: absolute;
+            font-size: 0.8rem;
+        }
+
+        .spinning {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- COMPONENT: INTERACTIVE BLU-RAY DRAG Shelf --- */
+        .shelf {
+            display: flex;
+            gap: 10px;
+            background: #e6e1d3;
+            padding: 10px;
+            border-bottom: 4px solid var(--olive-green);
+            margin-bottom: 20px;
+        }
+
+        .dvd-case {
+            width: 45px;
+            height: 70px;
+            background: var(--olive-green);
+            color: var(--ivory);
+            font-size: 0.6rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            cursor: grab;
+            border-radius: 3px;
+            border-left: 5px solid var(--dark-olive);
+            font-weight: bold;
+            padding: 2px;
+        }
+
+        .dvd-player-slot {
+            width: 100%;
+            height: 80px;
+            border: 3px dashed var(--dark-olive);
+            background: var(--bg-sand);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .dvd-player-slot.hovered {
+            background: var(--cyber-glow);
+        }
+
+        .episode-list {
+            margin-top: 15px;
+            display: none;
+            background: var(--ivory);
+            border: 1px solid var(--olive-green);
+            padding: 10px;
+        }
+
+        /* --- KITCHEN/PANTRY FRIDGE INTERFACE --- */
+        .fridge {
+            width: 100%;
+            border: 3px solid var(--dark-olive);
+            background: #fdfbf7;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .fridge-door {
+            background: #eae5d8;
+            padding: 10px;
+            border-bottom: 3px solid var(--dark-olive);
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .fridge-magnets {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            flex-wrap: wrap;
+        }
+        .magnet {
+            background: #fff;
+            padding: 5px;
+            box-shadow: 2px 2px 0px #aaa;
+            transform: rotate(-3deg);
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>✦ MEMORY_ARCHIVE.EXE ✦</h1>
-        <p>Private Digital Scrapbook & Nostalgia Vault</p>
-    </header>
-
-    <div class="tab-container">
-        <button class="tab-btn active" onclick="switchTab('gallery')">Gallery</button>
-        <button class="tab-btn" onclick="switchTab('kitchen')">The Kitchen</button>
-        <button class="tab-btn" onclick="switchTab('desktop')">Retro Desktop</button>
+    <div id="password-gate">
+        <h2 style="text-transform: uppercase; letter-spacing: 2px;">🔒 enter sanctuary</h2>
+        <p style="font-size: 0.8rem; margin-bottom: 20px;">[ private domain of jasmyn ]</p>
+        <input type="password" id="pass-input" class="cyber-input" placeholder="•••••••••">
+        <button onclick="checkPassword()" class="cyber-btn">UNLOCK</button>
+        <p id="err-msg" style="color: red; font-size: 0.8rem; margin-top: 10px; display: none;">Access Denied.</p>
     </div>
 
-    <!-- GALLERY PANEL -->
-    <div id="gallery" class="view-panel active">
-        <div class="filmstrip-container">
-            
-            <!-- Filmstrip Row 1 -->
-            <div>
-                <div class="filmstrip-title">YEAR_2024_HIGHLIGHTS //</div>
-                <div class="filmstrip">
-                    <!-- Frame 1 -->
-                    <div class="filmstrip-frame">
-                        <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?w=500" alt="Placeholder 1">
-                    </div>
-                    <!-- Frame 2 (You'll replace these sources with your Google Photos embed URLs) -->
-                    <div class="filmstrip-frame">
-                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=500" alt="Placeholder 2">
-                    </div>
-                    <div class="filmstrip-frame">
-                        <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?w=500" alt="Placeholder 3">
+    <div id="desktop">
+
+        <div class="desktop-icon" onclick="openWindow('win-music')">
+            <div class="icon-pic">🎵</div>
+            <span>Jukebox</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('win-videos')">
+            <div class="icon-pic">📼</div>
+            <span>Memories</span>
+        </div>
+
+        <div class="desktop-icon" onclick="openWindow('win-food')">
+            <div class="icon-pic">🥞</div>
+            <span>Pantry</span>
+        </div>
+
+        <div id="win-music" class="window" style="top: 100px; left: 150px;">
+            <div class="window-header">
+                <span>vinyl_player.exe</span>
+                <span class="close-btn" onclick="closeWindow('win-music')">X</span>
+            </div>
+            <div class="window-content vinyl-container">
+                <div class="vinyl" id="turntable"></div>
+                <select id="track-selector" class="cyber-input" style="width: 100%; font-size: 0.8rem;" onchange="changeTrack()">
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3">Track 01: y2k_nostalgia.mp3</option>
+                    <option value="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3">Track 02: lo-fi_foliage.mp3</option>
+                </select>
+                <audio id="audio-player" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" controls style="width:100%;"></audio>
+            </div>
+        </div>
+
+        <div id="win-videos" class="window" style="top: 50px; left: 450px; width: 400px;">
+            <div class="window-header">
+                <span>bluray_shelf.sh</span>
+                <span class="close-btn" onclick="closeWindow('win-videos')">X</span>
+            </div>
+            <div class="window-content">
+                <p style="font-size: 0.75rem; margin: 0 0 10px 0;">Drag a memory box into the Blu-Ray player below:</p>
+                
+                <div class="shelf">
+                    <div class="dvd-case" draggable="true" id="dvd-2012" ondragstart="drag(event)" data-desc="✨ 2012 Chronicles:<br>• Dancing in the kitchen<br>• High school orientation photo bloopers<br>• Slumber party vlog">Jasmyn '12</div>
+                    <div class="dvd-case" draggable="true" id="dvd-shower" ondragstart="drag(event)" data-desc="👶 Baby Shower Tape:<br>• Unboxing the tiny green sneakers<br>• Tears during family speeches<br>• Tiered cake smash uncut footage">Shower '24</div>
+                </div>
+
+                <div class="dvd-player-slot" id="drop-slot" ondragover="allowDrop(event)" ondragleave="leaveDrop(event)" ondrop="drop(event)">
+                    [ INSERT DISK HERE ]
+                </div>
+
+                <div class="episode-list" id="episodes">
+                    <strong>📀 LOADING TAPE INDEX...</strong>
+                    <p id="tape-description" style="font-size: 0.85rem; margin-top: 5px; line-height: 1.4;"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="win-food" class="window" style="top: 250px; left: 200px; width: 350px;">
+            <div class="window-header">
+                <span>nostalgic_fridge.sys</span>
+                <span class="close-btn" onclick="closeWindow('win-food')">X</span>
+            </div>
+            <div class="window-content">
+                <div class="fridge">
+                    <div class="fridge-door"><span>📟 MY COMFORT FOODS</span><span>🧊</span></div>
+                    <div class="fridge-magnets">
+                        <div class="magnet" onclick="alert('Dunkaroos: The absolute elite snack of 2008.')">🍪 Dunkaroos</div>
+                        <div class="magnet" onclick="alert('Cosmic Brownies: Fave color context: consumed strictly during high school emo phase.')">🍫 Cosmic Brownies</div>
+                        <div class="magnet" onclick="alert('Shaved Ice: Blue raspberry flavor that stained teeth for days.')">🍧 Blue Ice</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Filmstrip Row 2 -->
-            <div>
-                <div class="filmstrip-title">CONCERTS_&_TRIPS //</div>
-                <div class="filmstrip">
-                    <div class="filmstrip-frame">
-                        <video src="" controls muted placeholder="Paste Google Video URL here"></video>
-                    </div>
-                </div>
-            </div>
-
         </div>
-    </div>
 
-    <!-- KITCHEN PANEL -->
-    <div id="kitchen" class="view-panel">
-        <h2 style="color: var(--accent-chrome);">🫙 The Interactive Fridge</h2>
-        <p>Click on custom panels to pull up past favorite foods, recipes, and dynamic scrapbooked memories.</p>
-        <div class="kitchen-grid">
-            <div class="trinket-card"><h3>🛒 Snacks & Candy</h3></div>
-            <div class="trinket-card"><h3>🥤 Drink Tier Lists</h3></div>
-            <div class="trinket-card"><h3>🥞 Late Night Runs</h3></div>
-        </div>
-    </div>
-
-    <!-- DESKTOP GAMES PANEL -->
-    <div id="desktop" class="view-panel">
-        <h2 style="color: var(--accent-chrome);">💾 Virtual OS Desktop</h2>
-        <p>An interactive dashboard tracking game profiles, links to remakes, and usernames.</p>
-        <div class="kitchen-grid">
-            <div class="trinket-card"><h3>🎮 Nostalgic MMOs</h3></div>
-            <div class="trinket-card"><h3>👾 Flash Classics</h3></div>
-        </div>
     </div>
 
     <script>
-        function switchTab(tabId) {
-            // Hide all panels
-            document.querySelectorAll('.view-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            // Deactivate all buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected panel and button
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+        // Password Verification Control
+        function checkPassword() {
+            const entry = document.getElementById('pass-input').value;
+            // Simple front-end demonstration check (Use environment vars on deployment)
+            if(entry.toLowerCase() === 'plants') {
+                document.getElementById('password-gate').style.display = 'none';
+                document.getElementById('desktop').style.display = 'block';
+            } else {
+                document.getElementById('err-msg').style.display = 'block';
+            }
         }
+
+        // Window toggle mechanics
+        function openWindow(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+        function closeWindow(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Audio and Vinyl Spin Sync
+        const audio = document.getElementById('audio-player');
+        const vinyl = document.getElementById('turntable');
+
+        audio.onplay = () => vinyl.classList.add('spinning');
+        audio.onpause = () => vinyl.classList.remove('spinning');
+
+        function changeTrack() {
+            const selector = document.getElementById('track-selector');
+            audio.src = selector.value;
+            if (vinyl.classList.contains('spinning')) {
+                audio.play();
+            }
+        }
+
+        // Drag and Drop Logic for Blu-ray Component
+        function allowDrop(ev) {
+            ev.preventDefault();
+            document.getElementById('drop-slot').classList.add('hovered');
+        }
+
+        function leaveDrop(ev) {
+            document.getElementById('drop-slot').classList.remove('hovered');
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            const slot = document.getElementById('drop-slot');
+            slot.classList.remove('hovered');
+            
+            const data = ev.dataTransfer.getData("text");
+            const draggedElement = document.getElementById(data);
+            
+            slot.innerHTML = `🟢 Loaded: <strong>${draggedElement.innerText}</strong>`;
+            
+            // Extract the descriptive metadata from the element and display it as an "episode guide"
+            const index = document.getElementById('episodes');
+            const desc = document.getElementById('tape-description');
+            desc.innerHTML = draggedElement.getAttribute('data-desc');
+            index.style.display = 'block';
+        }
+
+        // Simple Old-School Draggable Windows Implementation
+        document.querySelectorAll('.window-header').forEach(header => {
+            header.onmousedown = function(e) {
+                let win = header.parentElement;
+                let shiftX = e.clientX - win.getBoundingClientRect().left;
+                let shiftY = e.clientY - win.getBoundingClientRect().top;
+
+                function moveAt(clientX, clientY) {
+                    win.style.left = clientX - shiftX + 'px';
+                    win.style.top = clientY - shiftY + 'px';
+                }
+
+                function onMouseMove(e) {
+                    moveAt(e.clientX, e.clientY);
+                }
+
+                document.addEventListener('mousemove', onMouseMove);
+
+                document.onmouseup = function() {
+                    document.removeEventListener('mousemove', onMouseMove);
+                    document.onmouseup = null;
+                };
+            };
+            header.ondragstart = function() { return false; };
+        });
     </script>
 </body>
 </html>
